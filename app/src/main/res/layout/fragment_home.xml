@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.namnguyen.weather.home.HomeViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/padding_normal"
+        android:background="#FFF">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnGetWeather"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_normal"
+            android:contentDescription="@string/get_weather"
+            android:text="@string/get_weather"
+            android:layout_marginEnd="@dimen/padding_small"
+            android:textAllCaps="true"
+            android:background="#000"
+            android:textColor="#FFF"
+            android:foreground="?attr/selectableItemBackground"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edtWeather"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:hint="@{@string/search_hint}"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:background="@drawable/bg_radius_border_non_bg"
+            android:layout_marginHorizontal="@dimen/padding_normal"
+            android:minHeight="@dimen/actionBarSize"
+            android:paddingHorizontal="@dimen/padding_normal"
+            android:paddingVertical="@dimen/padding_tiny"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnGetWeather"
+            app:layout_constraintTop_toTopOf="@id/btnGetWeather"
+            app:layout_constraintBottom_toBottomOf="@id/btnGetWeather"
+            tools:hint="Search in city name">
+
+            <requestFocus />
+        </androidx.appcompat.widget.AppCompatEditText>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvWeather"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/padding_normal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnGetWeather"
+            tools:itemCount="7"
+            tools:visibility="gone"
+            tools:listitem="@layout/item_weather" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvWeatherHistory"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/padding_normal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnGetWeather"
+            tools:itemCount="3"
+            tools:listitem="@layout/item_history_weather" />
+
+        <TextView
+            android:id="@+id/tvEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:layout_margin="@dimen/padding_normal"
+            android:text="@string/empty"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnGetWeather" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

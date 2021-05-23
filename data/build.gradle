@@ -1,0 +1,78 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    def globalConfiguration = rootProject.extensions.getByName("ext")
+    compileSdkVersion globalConfiguration["androidCompileSdkVersion"]
+
+    defaultConfig {
+        minSdkVersion globalConfiguration["androidMinSdkVersion"]
+        targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
+        versionCode globalConfiguration["androidVersionCode"]
+        versionName globalConfiguration["androidVersionName"]
+
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    configurations.all() {
+        resolutionStrategy.force "org.antlr:antlr4-runtime:4.5.3"
+        resolutionStrategy.force "org.antlr:antlr4-tool:4.5.3"
+    }
+
+    packagingOptions {
+        exclude 'LICENSE.txt'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    productFlavors {
+        flavorDimensions("default")
+        create("dev") {
+            buildConfigField("String", "BASE_GEOCODE_URL", "\"https://api.opencagedata.com/\"")
+            buildConfigField("String", "BASE_URL", "\"https://api.openweathermap.org/\"")
+        }
+        create("staging") {
+            buildConfigField("String", "BASE_GEOCODE_URL", "\"https://api.opencagedata.com/\"")
+            buildConfigField("String", "BASE_URL", "\"https://api.openweathermap.org/\"")
+        }
+        create("production") {
+            buildConfigField("String", "BASE_GEOCODE_URL", "\"https://api.opencagedata.com/\"")
+            buildConfigField("String", "BASE_URL", "\"https://api.openweathermap.org/\"")
+        }
+    }
+}
+
+dependencies {
+    def dataDependencies = rootProject.ext.dataDependencies
+
+    implementation project(':domain')
+    implementation dataDependencies.gson
+    implementation dataDependencies.androidAnnotations
+    implementation dataDependencies.retrofit
+    implementation dataDependencies.retrofitAdapter
+    implementation dataDependencies.retrofitConverter
+    implementation dataDependencies.okHttpLog
+    implementation dataDependencies.kotlin
+    implementation dataDependencies.room
+    implementation dataDependencies.roomRx
+    kapt dataDependencies.roomCompiler
+    implementation dataDependencies.roomCoroutine
+    implementation dataDependencies.hilt
+    implementation dataDependencies.coreKtx
+    kapt dataDependencies.hiltCompiler
+
+}
+
+repositories {
+    mavenCentral()
+}

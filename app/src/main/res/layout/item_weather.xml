@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="weatherInfo"
+            type="com.namnguyen.weather.model.WeatherInfo" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_normal"
+        android:background="@drawable/bg_radius_border_non_bg"
+        android:padding="@dimen/padding_normal">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivWeatherInfo"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:contentDescription="@null"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_cloudy_sun" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvWeatherInfo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/padding_normal"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@color/textColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivWeatherInfo"
+            app:layout_constraintTop_toTopOf="parent"
+            app:weather="@{weatherInfo}"
+            tools:text="Nam Nguyen" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
