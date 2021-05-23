@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Weather Forecast</string>
+    <string name="search_hint">Input your city</string>
+    <string name="date">Date</string>
+    <string name="average_temp">Average temperature</string>
+    <string name="pressure">Pressure</string>
+    <string name="humidity">Humidity</string>
+    <string name="description">Description</string>
+    <string name="get_weather">Search</string>
+    <string name="text_cancel">Cancel</string>
+    <string name="text_ok">OK</string>
+    <string name="content_unexpected_error">There was a problem with this loading. Please try again later.</string>
+    <string name="title_unexpected_error">It\'s not you, it\'s us</string>
+    <string name="city_not_found">City not found</string>
+    <string name="empty">Empty weather forecast!</string>
+    <string name="title_close">Close</string>
+    <string name="search_complete">Searching completed</string>
+    <string name="searching">Searching...</string>
+</resources>

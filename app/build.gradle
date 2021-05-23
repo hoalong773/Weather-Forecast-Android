@@ -1,0 +1,107 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
+
+android {
+    def globalConfiguration = rootProject.extensions.getByName("ext")
+    compileSdkVersion globalConfiguration["androidCompileSdkVersion"]
+
+    defaultConfig {
+        applicationId globalConfiguration["androidApplicationId"]
+        minSdkVersion globalConfiguration["androidMinSdkVersion"]
+        targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
+        versionCode globalConfiguration["androidVersionCode"]
+        versionName globalConfiguration["androidVersionName"]
+
+    }
+
+    configurations.all() {
+        resolutionStrategy.force "org.antlr:antlr4-runtime:4.5.3"
+        resolutionStrategy.force "org.antlr:antlr4-tool:4.5.3"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    productFlavors {
+        flavorDimensions("default")
+        create("dev") {
+            applicationIdSuffix = ".dev"
+        }
+        create("staging") {
+            applicationIdSuffix = ".dev"
+        }
+        create("production") {
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    androidExtensions {
+        experimental = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
+    buildFeatures {
+        dataBinding = true
+    }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+}
+
+dependencies {
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    def appDependencies = rootProject.ext.appDependencies
+
+    implementation project(':domain')
+    implementation project(':data')
+    implementation appDependencies.lifecycleExt
+    implementation appDependencies.lifecycleRuntime
+    implementation appDependencies.lifecycleViewModelKtx
+    implementation appDependencies.lifecycleLiveDataKtx
+    implementation appDependencies.material
+    implementation appDependencies.androidAnnotations
+    implementation appDependencies.appCompat
+    implementation appDependencies.constraintLayout
+    implementation appDependencies.kotlin
+    implementation appDependencies.supportDesign
+    implementation appDependencies.fragmentKtx
+    implementation appDependencies.gson
+    implementation appDependencies.room
+    implementation appDependencies.roomRx
+    kapt appDependencies.roomCompiler
+    implementation appDependencies.hilt
+    kapt appDependencies.hiltCompiler
+    implementation appDependencies.navFragment
+    implementation appDependencies.navUi
+
+    //Testing
+    testImplementation  appDependencies.junit
+    testImplementation appDependencies.mockitoCore
+    testImplementation appDependencies.nhaarman
+}
+
+buildscript {
+    repositories {
+    }
+}
